@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ECL Employee Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>Eastern Coalfields Limited</h1>
+
+            <p>Employee Data Collection Dashboard</p>
+
+        </div>
+
+        <a href="/" class="add-button">
+            + Add Employee
+        </a>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <div>
+
+                <h3>Total Employees</h3>
+
+                <p>{{ total_employees }}</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                👤
+            </div>
+
+            <div>
+
+                <h3>Permanent</h3>
+
+                <p>{{ permanent_employees }}</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                📋
+            </div>
+
+            <div>
+
+                <h3>Contract</h3>
+
+                <p>{{ contract_employees }}</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                🎓
+            </div>
+
+            <div>
+
+                <h3>Trainees</h3>
+
+                <p>{{ trainee_employees }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Dashboard -->
+
+    <div class="dashboard-grid">
+
+        <!-- Department Statistics -->
+
+        <div class="dashboard-panel">
+
+            <h2>Employees by Department</h2>
+
+            {% if department_data %}
+
+                {% for department in department_data %}
+
+                <div class="department-row">
+
+                    <span>
+                        {{ department.department }}
+                    </span>
+
+                    <strong>
+                        {{ department.total }}
+                    </strong>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>No department data available.</p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Recent Employees -->
+
+        <div class="dashboard-panel">
+
+            <h2>Recently Added Employees</h2>
+
+            {% if recent_employees %}
+
+            <div class="recent-list">
+
+                {% for employee in recent_employees %}
+
+                <div class="employee-row">
+
+                    <div>
+
+                        <strong>
+                            {{ employee.employee_name }}
+                        </strong>
+
+                        <small>
+                            {{ employee.employee_id }}
+                        </small>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            {{ employee.department or 'N/A' }}
+                        </small>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p>No employees added yet.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Quick Actions -->
+
+    <div class="dashboard-panel quick-panel">
+
+        <h2>Quick Actions</h2>
+
+        <div class="quick-actions">
+
+            <a href="/" class="quick-button">
+                Add Employee
+            </a>
+
+            <a href="/employees" class="quick-button">
+                View Employees
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
