@@ -1,249 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ECL Employee Data Collection</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #173b73, #0b1f3a);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 35px auto;
+            background: white;
+            padding: 35px 45px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #173b73;
+            font-size: 25px;
+            margin: 20px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #173b73;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #173b73;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background-color: #173b73;
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0b1f3a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 25px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
-
+    <!-- Header -->
     <div class="header">
         <h1>Eastern Coalfields Limited</h1>
         <p>Employee Data Collection Portal</p>
     </div>
 
+    <!-- Main Container -->
+    <div class="container">
 
-    <form action="/submit" method="POST">
+        <form action="/submit" method="POST">
 
-        <!-- Personal Information -->
-        <h2>Personal Information</h2>
+            <!-- Personal Information -->
+            <h2 class="section-title">Personal Information</h2>
 
-        <div class="form-grid">
+            <div class="form-grid">
 
-            <div class="form-group">
-                <label>Employee ID *</label>
-                <input
-                    type="text"
-                    name="employee_id"
-                    placeholder="Enter Employee ID"
-                    required
-                >
+                <!-- Employee ID -->
+                <div class="form-group">
+                    <label for="employee_id">Employee ID *</label>
+                    <input
+                        type="text"
+                        id="employee_id"
+                        name="employee_id"
+                        placeholder="Enter Employee ID"
+                        required>
+                </div>
+
+                <!-- Employee Name -->
+                <div class="form-group">
+                    <label for="employee_name">Employee Name *</label>
+                    <input
+                        type="text"
+                        id="employee_name"
+                        name="employee_name"
+                        placeholder="Enter Employee Name"
+                        required>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="form-group">
+                    <label for="dob">Date of Birth *</label>
+                    <input
+                        type="date"
+                        id="dob"
+                        name="dob"
+                        required>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label for="gender">Gender *</label>
+                    <select
+                        id="gender"
+                        name="gender"
+                        required>
+
+                        <option value="" disabled selected>
+                            Select Gender
+                        </option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="form-group">
+                    <label for="mobile_number">Mobile Number *</label>
+                    <input
+                        type="tel"
+                        id="mobile_number"
+                        name="mobile_number"
+                        placeholder="Enter Mobile Number"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        minlength="10"
+                        required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        required>
+                </div>
+
             </div>
 
 
-            <div class="form-group">
-                <label>Employee Name *</label>
-                <input
-                    type="text"
-                    name="employee_name"
-                    placeholder="Enter Employee Name"
-                    required
-                >
+            <!-- Employment Information -->
+            <h2 class="section-title">Employment Information</h2>
+
+            <div class="form-grid">
+
+                <!-- Department -->
+                <div class="form-group">
+                    <label for="department">Department *</label>
+                    <input
+                        type="text"
+                        id="department"
+                        name="department"
+                        placeholder="Enter Department"
+                        required>
+                </div>
+
+                <!-- Designation -->
+                <div class="form-group">
+                    <label for="designation">Designation *</label>
+                    <input
+                        type="text"
+                        id="designation"
+                        name="designation"
+                        placeholder="Enter Designation"
+                        required>
+                </div>
+
+                <!-- Employee Type -->
+                <div class="form-group">
+                    <label for="employee_type">Employee Type *</label>
+                    <select
+                        id="employee_type"
+                        name="employee_type"
+                        required>
+
+                        <option value="" disabled selected>
+                            Select Employee Type
+                        </option>
+
+                        <option value="Permanent">Permanent</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Trainee">Trainee</option>
+
+                    </select>
+                </div>
+
+                <!-- Date of Joining -->
+                <div class="form-group">
+                    <label for="date_of_joining">Date of Joining *</label>
+                    <input
+                        type="date"
+                        id="date_of_joining"
+                        name="date_of_joining"
+                        required>
+                </div>
+
+                <!-- Office Building Name -->
+                <div class="form-group">
+                    <label for="office_building_name">
+                        Office Building Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="office_building_name"
+                        name="office_building_name"
+                        placeholder="Enter Office Building Name"
+                        required>
+                </div>
+
+                <!-- Floor Number -->
+                <div class="form-group">
+                    <label for="floor_no">Floor No. *</label>
+
+                    <input
+                        type="text"
+                        id="floor_no"
+                        name="floor_no"
+                        placeholder="Enter Floor Number"
+                        required>
+                </div>
+
             </div>
 
 
-            <div class="form-group">
-                <label>Date of Birth *</label>
-                <input
-                    type="date"
-                    name="dob"
-                    required
-                >
+            <!-- Address Information -->
+            <h2 class="section-title">Address Information</h2>
+
+            <div class="form-grid">
+
+                <!-- Address -->
+                <div class="form-group full-width">
+                    <label for="address">Address *</label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        placeholder="Enter Complete Address"
+                        required></textarea>
+                </div>
+
+                <!-- District -->
+                <div class="form-group">
+                    <label for="district">District *</label>
+
+                    <input
+                        type="text"
+                        id="district"
+                        name="district"
+                        placeholder="Enter District"
+                        required>
+                </div>
+
+                <!-- State -->
+                <div class="form-group">
+                  <label for="state">State / Union Territory *</label>
+
+                  <select
+                     id="state"
+                     name="state"
+                     required>
+
+                      <option value="" disabled selected>
+                          Select State / Union Territory
+                      </option>
+
+                      <!-- States -->
+                      <option value="Andhra Pradesh">Andhra Pradesh</option>
+                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                      <option value="Assam">Assam</option>
+                      <option value="Bihar">Bihar</option>
+                      <option value="Chhattisgarh">Chhattisgarh</option>
+                      <option value="Goa">Goa</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Haryana">Haryana</option>
+                      <option value="Himachal Pradesh">Himachal Pradesh</option>
+                      <option value="Jharkhand">Jharkhand</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Kerala">Kerala</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Maharashtra">Maharashtra</option>
+                      <option value="Manipur">Manipur</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                      <option value="Mizoram">Mizoram</option>
+                      <option value="Nagaland">Nagaland</option>
+                      <option value="Odisha">Odisha</option>
+                      <option value="Punjab">Punjab</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="Sikkim">Sikkim</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Tripura">Tripura</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Uttarakhand">Uttarakhand</option>
+                      <option value="West Bengal">West Bengal</option>
+
+                     <!-- Union Territories -->
+                      <option value="Andaman and Nicobar Islands">
+                          Andaman and Nicobar Islands
+                      </option>
+
+                      <option value="Chandigarh">
+                         Chandigarh
+                      </option>
+
+                      <option value="Dadra and Nagar Haveli and Daman and Diu">
+                        Dadra and Nagar Haveli and Daman and Diu
+                      </option>
+
+                      <option value="Delhi">
+                       Delhi
+                      </option>
+
+                      <option value="Jammu and Kashmir">
+                      Jammu and Kashmir
+                      </option>
+
+                      <option value="Ladakh">
+                       Ladakh
+                      </option>
+
+                      <option value="Lakshadweep">
+                      Lakshadweep
+                      </option>
+
+                      <option value="Puducherry">
+                      Puducherry
+                      </option>
+
+                    </select>
+                </div>
+                <!-- PIN Code -->
+                <div class="form-group">
+                    <label for="pin_code">PIN Code *</label>
+
+                    <input
+                        type="text"
+                        id="pin_code"
+                        name="pin_code"
+                        placeholder="Enter PIN Code"
+                        pattern="[0-9]{6}"
+                        minlength="6"
+                        maxlength="6"
+                        required>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-group">
+                    <label for="emergency_contact">
+                        Emergency Contact *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="emergency_contact"
+                        name="emergency_contact"
+                        placeholder="Enter Emergency Contact"
+                        pattern="[0-9]{10}"
+                        minlength="10"
+                        maxlength="10"
+                        required>
+                </div>
+
             </div>
 
 
-            <div class="form-group">
-                <label>Gender *</label>
-                <select name="gender" required>
-                    <option value="" disabled selected>
-                        Select Gender
-                    </option>
-
-                    <option value="Male">
-                        Male
-                    </option>
-
-                    <option value="Female">
-                        Female
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
-                </select>
+            <!-- Submit Button -->
+            <div class="submit-container">
+                <button type="submit" class="submit-btn">
+                    Submit Employee Data
+                </button>
             </div>
 
+        </form>
 
-            <div class="form-group">
-                <label>Mobile Number *</label>
-                <input
-                    type="tel"
-                    name="mobile"
-                    placeholder="Enter Mobile Number"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>Email *</label>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email"
-                    required
-                >
-            </div>
-
-        </div>
-
-
-        <!-- Employment Information -->
-        <h2>Employment Information</h2>
-
-        <div class="form-grid">
-
-            <div class="form-group">
-                <label>Department *</label>
-                <input
-                    type="text"
-                    name="department"
-                    placeholder="Enter Department"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>Designation *</label>
-                <input
-                    type="text"
-                    name="designation"
-                    placeholder="Enter Designation"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>Employee Type *</label>
-                <select name="employee_type" required>
-                    <option value="" disabled selected>
-                        Select Employee Type
-                    </option>
-
-                    <option value="Permanent">
-                        Permanent
-                    </option>
-
-                    <option value="Contract">
-                        Contract
-                    </option>
-
-                    <option value="Trainee">
-                        Trainee
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label>Date of Joining *</label>
-                <input
-                    type="date"
-                    name="joining_date"
-                    required
-                >
-            </div>
-
-        </div>
-
-
-        <!-- Address Information -->
-        <h2>Address Information</h2>
-
-        <div class="form-grid">
-
-            <div class="form-group full">
-                <label>Address *</label>
-
-                <textarea
-                    name="address"
-                    placeholder="Enter complete address"
-                    required
-                ></textarea>
-            </div>
-
-
-            <div class="form-group">
-                <label>District *</label>
-                <input
-                    type="text"
-                    name="district"
-                    placeholder="Enter District"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>State *</label>
-                <input
-                    type="text"
-                    name="state"
-                    value="West Bengal"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>PIN Code *</label>
-                <input
-                    type="text"
-                    name="pin_code"
-                    placeholder="Enter PIN Code"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label>Emergency Contact *</label>
-                <input
-                    type="tel"
-                    name="emergency_contact"
-                    placeholder="Emergency Contact Number"
-                    required
-                >
-            </div>
-
-        </div>
-
-
-        <!-- Submit -->
-        <div class="submit-section">
-
-            <button type="submit">
-                Submit Employee Data
-            </button>
-
-        </div>
-
-    </form>
-
-</div>
+    </div>
 
 </body>
 </html>

@@ -23,6 +23,11 @@ def submit():
     designation = request.form.get("designation")
     employee_type = request.form.get("employee_type")
     joining_date = request.form.get("joining_date")
+
+    # NEW FIELDS
+    office_building_name = request.form.get("office_building_name")
+    floor_no = request.form.get("floor_no")
+
     address = request.form.get("address")
     district = request.form.get("district")
     state = request.form.get("state")
@@ -53,6 +58,8 @@ def submit():
             designation,
             employee_type,
             joining_date,
+            office_building_name,
+            floor_no,
             address,
             district,
             state,
@@ -61,7 +68,7 @@ def submit():
         )
         VALUES (
             %s, %s, %s, %s, %s, %s, %s, %s, %s,
-            %s, %s, %s, %s, %s, %s
+            %s, %s, %s, %s, %s, %s, %s, %s
         )
         """
 
@@ -76,6 +83,11 @@ def submit():
             designation,
             employee_type,
             joining_date or None,
+
+            # NEW FIELDS
+            office_building_name,
+            floor_no,
+
             address,
             district,
             state,
@@ -101,7 +113,6 @@ def submit():
 
         if connection:
             connection.close()
-
 
 @app.route("/success")
 def success():
